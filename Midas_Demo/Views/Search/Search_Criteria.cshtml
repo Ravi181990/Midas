@@ -1,0 +1,152 @@
+﻿
+@model Midas_Demo.Models.SearchModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    @{
+        ViewBag.Title = "Information Managment";
+    }
+    <!-- Bootstrap core CSS -->
+
+    <script src="~/Content/jquery/jquery.js"></script>
+    <link href="~/Content/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <script src="~/Content/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="~/Content/bootstrap/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css" type="text/css" />
+
+    <link href="~/Content/bootstrap/css/bootstrap-multiselect.css" rel="stylesheet" />
+
+
+
+    <style>
+    </style>
+    <script>
+        function goForward() {
+            window.history.forward()
+        }</script>
+    <style type="text/css">
+
+
+        input[type=number].no-spinner::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input {
+            width: 100%;
+            height: 100%;
+        }
+
+        tr {
+            width: 30px;
+        }
+
+        label {
+            margin-left: 6px;
+        }
+
+        #sp {
+            color: red;
+        }
+
+        tr:hover td,
+        tr.even:hover td.active,
+        tr.odd:hover td.active {
+            background: #FFFEEE;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+
+            $('#abc').multiselect({
+
+
+                includeSelectAllOption: true
+            });
+
+        });
+
+
+    </script>
+
+</head>
+<body id="page-top">
+    <div class="card mb-3" style="margin-top: 2%;">
+        <div class="card-body">
+            <div class="table-responsive">
+                @using (Html.BeginForm("Search_Criteria", "Search", FormMethod.Post))
+                {
+                    <table border="1" align="center" style="width:61%;" id="dataTable" cellspacing="0">
+                        <tr>
+                            <td>
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @maxlength = "256", @class = "form-control", required = "required" } })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @maxlength = "1000", @class = "form-control", required = "required" } })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.Remaks, new { htmlAttributes = new { @maxlength = "1000", @class = "form-control", required = "required" } })
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.Tech_Name, new { htmlAttributes = new { @maxlength = "1000", @class = "form-control", required = "required" } })
+                            </td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+
+
+                            <td>
+                                <select  multiple="multiple" name="test">
+                                    <optgroup label="group1">
+                                        <option value="1">test1</option>
+                                        <option value="2">test2</option>
+                                        <option value="3">test3</option>
+
+
+
+                                    </optgroup>
+                                </select>
+                               
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(model => Model.Plant, Model.PlantList, "Select Plant", new { htmlAttributes = new { @class = "form-control" } })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(model => Model.Transactions, Model.TransactionsList, "Select Treasaction", new { htmlAttributes = new { @class = "form-control" } })
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(model => Model.Fields, Model.FieldsList, "Select Treasaction", new { htmlAttributes = new { @class = "form-control" } })
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <table align="center">
+                        <tr>
+                            <td>
+                                <input type="submit" value="Search" name="submt">
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fa fa-angle-up"></i>
+    </a>
+
+</body>
+</html>

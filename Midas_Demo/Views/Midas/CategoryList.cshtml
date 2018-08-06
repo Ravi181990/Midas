@@ -1,0 +1,124 @@
+﻿@model IEnumerable<Midas_Demo.Models.Category>
+@{
+    Layout = null;
+}
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    @{
+        ViewBag.Title = "Information Managment";
+    }
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet"
+          href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="vendor/bootstrap/js/page1.js"></script>
+
+    <style type="text/css">
+
+        tr:hover td,
+        tr.even:hover td.active,
+        tr.odd:hover td.active {
+            background: #FFFEEE;
+        }
+    </style>
+
+
+</head>
+<body id="page-top">
+    <a href='@Url.Action("AddCategory", "Midas")' class="btn btn-info" role="button" style=" float: left:;">Add Category</a>
+    <div class="card mb-3">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <div class="input-group add-on col-xs-offset-9">
+                    <input class="form-control" placeholder="Search for Category" width="30px;" style="float: left;" stname="srch-term" id="myInput" onkeyup="myFunction()" type="text">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+
+
+
+                <table class="table table-bordered" align="center" id="table" cellspacing="0" style="margin-top: 10px; width: 90%;">
+                    <thead>
+                        <tr>
+
+                            <th>Category List</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                               
+
+                                @Html.ActionLink(item.CategoryNm, "CategoryDetails", "Midas", new { id = item.Id }, null)
+
+                            </td>
+                            <td>
+                                @Html.ActionLink("Delete", "DeleteCategory", "Midas", new { id = item.Id}, null)
+                            </td>
+                        </tr>
+                        }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Scroll to Top Button -->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fa fa-angle-up"></i>
+        </a>
+
+
+        <script>
+            function myFunction() {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("table");
+                tr = table.getElementsByTagName("tr");
+
+                for (i = 1; i <= tr.length; i++) {
+                    td = tr[i].getElementsByTagName("a")[0];
+                    if (td) {
+
+                        if (td.innerHTML.toUpperCase().lastIndexOf(filter, 0) > -1) {
+
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }</script>
+
+    </body>
+</html>
