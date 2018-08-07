@@ -1,19 +1,29 @@
-﻿using Midas_Demo.DataRepository;
-using Midas_Demo.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Midas_Demo.Models;
+using System.IO;
+using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
+using System.Configuration;
+using Midas_Demo.DataRepository;
 
 namespace Midas_Demo.Controllers
 {
     public class SearchController : Controller
     {
         // GET: Search
-        SearchModel ser = new SearchModel();
+        SearchModel sm = new SearchModel();
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult SearchData()
+        {
+
+
             return View();
         }
 
@@ -21,10 +31,10 @@ namespace Midas_Demo.Controllers
         {
             SearchModel data = new SearchModel()
             {
-              CategoryList= new SelectList(new CategoryDataRepository().GetAllCategoryname(), "Id", "CategoryNm"),
-              PlantList =new SelectList(new PlantDataRepository().GetAllPlantName(), "Id", "Plant_Nm"),
-              TransactionsList=new SelectList(new TCodeDataRepository().GetAllTcodename(), "Id", "T_CodeName"),
-              FieldsList=new SelectList(new AvailableFieldDataRepository().GetAllAvailableFieldModelName(), "Id", "AvailableField_Nm"),
+                CategoryList = new SelectList(new CategoryDataRepository().GetAllCategoryname(), "Id", "CategoryNm"),
+                PlantList = new SelectList(new PlantDataRepository().GetAllPlantName(), "Id", "Plant_Nm"),
+                TransactionsList = new SelectList(new TCodeDataRepository().GetAllTcodename(), "Id", "T_CodeName"),
+                FieldsList = new SelectList(new AvailableFieldDataRepository().GetAllAvailableFieldModelName(), "Id", "AvailableField_Nm"),
 
 
             };
@@ -32,23 +42,29 @@ namespace Midas_Demo.Controllers
             return View(data);
         }
 
-        [HttpPost]
 
+        [HttpPost]
         public ActionResult Search_Criteria(SearchModel obj)
         {
             if (ModelState.IsValid)
-            {
-                ser.Name = obj.Name;
-                ser.Description = obj.Description;
-                ser.Remaks = obj.Remaks;
-                ser.Category = obj.Category;
-                ser.Plant = obj.Plant;
-                ser.Transactions = obj.Transactions;
-                ser.Fields = obj.Fields;
-                new SearchDataRepository().InsertSearchData(ser);
+            { 
+                sm.Name = obj.Name;
+                sm.Description = obj.Description;
+                sm.Remaks = obj.Remaks;
+                sm.Tech_Name = obj.Tech_Name;
+                sm.Category = obj.Category;
+                sm.Plant = obj.Plant;
+                sm.Transactions = obj.Transactions;
+                sm.Fields = obj.Fields;
+
+                new SearchDataRepository().InsertSearchData(sm);
+                return RedirectToAction("SearchData");
             }
 
             return View();
         }
+
+
+
     }
 }
